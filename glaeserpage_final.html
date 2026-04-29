@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocktailgläser – Die Welt der Barkultur</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6914;
+    --dark: #0E0E0E;
+    --dark-2: #161616;
+    --dark-3: #1E1E1E;
+    --dark-4: #2A2A2A;
+    /* KONTRAST-FIX: deutlich hellere Textwerte */
+    --text: #F5F0EA;
+    --text-muted: #C8C0B4;
+    --text-dim: #8A8278;
+    --accent: #E8D5B0;
+    --border: rgba(201, 169, 110, 0.22);
+    --border-hover: rgba(201, 169, 110, 0.55);
+    --radius: 4px;
+    --radius-lg: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(14,14,14,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,169,110,0.07) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--text); margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 1rem; color: var(--text-muted);
+    max-width: 520px; margin: 0 auto 3rem; line-height: 1.8;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 0.75rem 2rem; font-size: 0.8rem; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.3s; background: transparent; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--dark); }
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--text-dim); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; animation: float 2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+
+  .section-intro {
+    padding: 6rem 2rem; max-width: 860px; margin: 0 auto; text-align: center;
+  }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .section-body { color: var(--text-muted); font-size: 0.97rem; line-height: 1.85; }
+
+  .glasses-section { padding: 2rem 2rem 6rem; max-width: 1300px; margin: 0 auto; }
+  .filter-bar {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 3rem;
+  }
+  .filter-btn {
+    padding: 0.4rem 1.1rem; font-size: 0.75rem; letter-spacing: 0.08em;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-dim); cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif; border-radius: var(--radius);
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold); color: var(--gold);
+    background: rgba(201,169,110,0.07);
+  }
+
+  .glasses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5px;
+  }
+  .glass-card {
+    background: var(--dark-2); border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .glass-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .glass-card:hover { border-color: var(--border-hover); background: var(--dark-3); transform: translateY(-2px); }
+  .glass-card:hover::before { opacity: 1; }
+
+  .card-top { display: flex; }
+  .card-visual {
+    width: 140px; min-height: 180px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--dark-3); overflow: hidden;
+  }
+  .card-visual svg { display: block; }
+  .card-info {
+    flex: 1; padding: 1.25rem 1.25rem 1rem;
+    display: flex; flex-direction: column;
+  }
+  .card-number { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 0.3rem; }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300; color: var(--text);
+    line-height: 1.2; margin-bottom: 0.15rem;
+  }
+  .card-alias { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+  .card-tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.9rem; }
+  .tag {
+    font-size: 0.65rem; letter-spacing: 0.08em; padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border); color: var(--text-dim);
+    border-radius: 2px; text-transform: uppercase;
+  }
+  .card-expand-hint {
+    font-size: 0.7rem; color: var(--gold); letter-spacing: 0.08em;
+    text-align: right; margin-top: 0.6rem; opacity: 0; transition: opacity 0.2s;
+  }
+  .glass-card:hover .card-expand-hint { opacity: 1; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+    z-index: 200; display: none; align-items: center; justify-content: center;
+    padding: 1rem; backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--dark-2); border: 1px solid var(--border-hover);
+    max-width: 820px; width: 100%; max-height: 90vh; overflow-y: auto;
+    position: relative; animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none; color: var(--text-muted);
+    font-size: 1.5rem; cursor: pointer; z-index: 10;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+  .modal-header { display: grid; grid-template-columns: 200px 1fr; min-height: 220px; }
+  .modal-image { position: relative; overflow: hidden; background: var(--dark-3); display: flex; align-items: center; justify-content: center; }
+  .modal-image svg { opacity: 0.85; }
+  .modal-title-area {
+    padding: 2rem 3rem 1.5rem 1.5rem; background: var(--dark-3);
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .modal-number { font-size: 0.65rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1.1; margin-bottom: 0.25rem; }
+  .modal-alias-line { font-size: 0.82rem; color: var(--text-muted); }
+  .modal-body { padding: 2rem; }
+  .modal-section { margin-bottom: 2rem; }
+  .modal-section-title {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.75rem; padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-section p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
+
+  .specs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 1.5rem;
+  }
+  .spec-item { background: var(--dark-3); padding: 0.9rem 1rem; }
+  .spec-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.3rem; }
+  .spec-value { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text); }
+
+  .cocktail-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .cocktail-pill {
+    padding: 0.3rem 0.8rem; border: 1px solid var(--border);
+    font-size: 0.77rem; color: var(--text-muted); border-radius: 2px; letter-spacing: 0.03em;
+  }
+  .pro-tip {
+    background: rgba(201,169,110,0.07); border-left: 2px solid var(--gold);
+    padding: 0.9rem 1rem; font-size: 0.84rem; color: var(--accent);
+    line-height: 1.75; font-style: italic;
+  }
+
+  /* QUIZ */
+  .quiz-section { padding: 6rem 2rem; max-width: 860px; margin: 0 auto; }
+  .quiz-container {
+    background: var(--dark-2); border: 1px solid var(--border);
+    padding: 2.5rem; margin-top: 3rem;
+  }
+  .quiz-progress { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+  .quiz-progress-bar { flex: 1; height: 2px; background: var(--dark-4); }
+  .quiz-progress-fill { height: 100%; background: var(--gold); transition: width 0.4s ease; }
+  .quiz-progress-text { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.1em; white-space: nowrap; }
+  .quiz-question { margin-bottom: 2rem; }
+  .quiz-q-type { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .quiz-q-text { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; line-height: 1.35; color: var(--text); }
+  .quiz-q-hint { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.4rem; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .quiz-option {
+    padding: 0.85rem 1.1rem; border: 1px solid var(--border);
+    background: var(--dark-3); color: var(--text-muted); font-size: 0.87rem;
+    cursor: pointer; transition: all 0.2s; text-align: left;
+    font-family: 'DM Sans', sans-serif; border-radius: var(--radius);
+  }
+  .quiz-option:hover:not(:disabled) { border-color: var(--gold); color: var(--text); background: var(--dark-4); }
+  .quiz-option.correct { border-color: #4CAF50; color: #A5D6A7; background: rgba(76,175,80,0.1); }
+  .quiz-option.wrong { border-color: #EF5350; color: #EF9A9A; background: rgba(239,83,80,0.1); }
+  .quiz-option:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 1.5rem; padding: 1rem 1.25rem;
+    border: 1px solid var(--border); background: var(--dark-3);
+    min-height: 60px; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback-title { font-size: 0.82rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .quiz-feedback.correct .quiz-feedback-title { color: #A5D6A7; }
+  .quiz-feedback.wrong .quiz-feedback-title { color: #EF9A9A; }
+  .quiz-feedback-text { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+  .quiz-nav { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+
+  .btn-primary {
+    padding: 0.65rem 1.8rem; background: var(--gold); border: none;
+    color: var(--dark); font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-weight: 500; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-secondary {
+    padding: 0.65rem 1.8rem; background: transparent;
+    border: 1px solid var(--gold); color: var(--gold); font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-right: 0.75rem;
+  }
+  .btn-secondary:hover { background: rgba(201,169,110,0.08); }
+
+  .quiz-result { text-align: center; padding: 2rem 0; display: none; }
+  .quiz-result.show { display: block; }
+  .result-score { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+  .result-label { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.5rem; }
+  .result-message { font-size: 1rem; color: var(--text-muted); max-width: 400px; margin: 0 auto 2rem; line-height: 1.7; }
+
+  .gold-divider { width: 60px; height: 1px; background: var(--gold); margin: 2rem auto; opacity: 0.5; }
+
+  .sources-section {
+    padding: 4rem 2rem; max-width: 860px; margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+  .sources-list { list-style: none; margin-top: 1.5rem; }
+  .sources-list li {
+    padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.82rem; color: var(--text-muted);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .source-num { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.1em; flex-shrink: 0; padding-top: 0.1em; }
+  .source-text a { color: var(--gold); text-decoration: none; }
+  .source-text a:hover { text-decoration: underline; }
+
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    .modal-header { grid-template-columns: 1fr; }
+    .modal-image { min-height: 200px; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .glasses-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .card-visual { width: 110px; }
+  }
+
+  .glass-card.hidden { display: none; }
+  .quiz-inner { display: block; }
+  .quiz-inner.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">DIF: Barkurs</div>
+  <ul class="nav-links">
+    <li><a href="#glaeserkunde">Gläserkunde</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#quellen">Quellen</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Barkultur & Gläserkunde</p>
+    <h1>Die Kunst des<br><em>richtigen Glases</em></h1>
+    <p class="hero-desc">In der professionellen Gastronomie ist das Glas kein bloßes Behältnis – es ist Teil des Gesamterlebnisses. Form, Volumen und Material beeinflussen Aroma, Temperatur und Ästhetik jedes Cocktails maßgeblich.</p>
+    <a href="#glaeserkunde" class="hero-cta">Entdecken ↓</a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</div>
+
+<div class="section-intro" id="glaeserkunde">
+  <p class="section-label">Theorie & Praxis</p>
+  <h2 class="section-title">Warum die Glaswahl entscheidend ist</h2>
+  <div class="gold-divider"></div>
+  <p class="section-body">Die sorgfältige Wahl des Trinkglases ist in der Barkultur seit Jahrhunderten eine Wissenschaft für sich. Das richtige Glas unterstreicht nicht nur die visuelle Präsentation eines Getränks, sondern beeinflusst direkt die sensorische Wahrnehmung: Die Öffnungsweite lenkt Aromen zur Nase, die Wandstärke steuert die Temperatur, und das Volumen bestimmt das Verhältnis von Drink zu Eis oder Garnitur. Professionelle Barkeeper weltweit wählen ihr Glas mit derselben Sorgfalt wie ihre Zutaten.</p>
+</div>
+
+<div class="glasses-section">
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Alle (9)</button>
+    <button class="filter-btn" data-filter="klassisch">Klassisch</button>
+    <button class="filter-btn" data-filter="longdrink">Longdrink</button>
+    <button class="filter-btn" data-filter="shots">Shots & Sours</button>
+    <button class="filter-btn" data-filter="thematisch">Thematisch</button>
+  </div>
+
+  <div class="glasses-grid" id="glassGrid">
+
+    <div class="glass-card" data-categories="klassisch" onclick="openModal(0)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <line x1="70" y1="130" x2="70" y2="158" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="45" y1="158" x2="95" y2="158" stroke="#C9A96E" stroke-width="2"/>
+            <path d="M30,30 L70,128 L110,30 Z" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="30" y1="30" x2="110" y2="30" stroke="#C9A96E" stroke-width="1.5"/>
+            <ellipse cx="70" cy="80" rx="4" ry="4" fill="#C9A96E" opacity="0.6"/>
+            <path d="M50,50 L90,50" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+            <path d="M40,38 L100,38" stroke="rgba(201,169,110,0.15)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">01 / 09</div>
+          <div class="card-name">Cocktailspitz</div>
+          <div class="card-alias">Martini-Glas · V-Glass</div>
+          <div class="card-tagline">Das ikonischste aller Cocktailgläser – die nach unten spitz zulaufende V-Form ist weltweit Symbol der Barkultur.</div>
+          <div class="card-tags">
+            <span class="tag">Klassisch</span>
+            <span class="tag">Stirred</span>
+            <span class="tag">150–300 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="thematisch longdrink" onclick="openModal(1)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,20 Q35,60 38,100 Q40,130 55,145 L85,145 Q100,130 102,100 Q105,60 90,20 Z" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="55" y1="145" x2="55" y2="162" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="85" y1="145" x2="85" y2="162" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="42" y1="162" x2="98" y2="162" stroke="#C9A96E" stroke-width="2"/>
+            <path d="M52,22 Q37,62 40,102" stroke="rgba(201,169,110,0.18)" stroke-width="0.8" fill="none"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">02 / 09</div>
+          <div class="card-name">Fancy-Glas</div>
+          <div class="card-alias">Hurricane · Poco Grande</div>
+          <div class="card-tagline">Voluminöse, tropisch geschwungene Form für fruchtige Tiki- und Frozen-Drinks mit viel Eis und üppiger Garnitur.</div>
+          <div class="card-tags">
+            <span class="tag">Thematisch</span>
+            <span class="tag">Tropical</span>
+            <span class="tag">350–500 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="klassisch" onclick="openModal(2)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <path d="M38,45 L42,140 L98,140 L102,45 Z" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="38" y1="45" x2="102" y2="45" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="42" y1="140" x2="98" y2="140" stroke="#C9A96E" stroke-width="2.5"/>
+            <path d="M41,80 L99,80" stroke="rgba(201,169,110,0.2)" stroke-width="0.8"/>
+            <path d="M41,110 L99,110" stroke="rgba(201,169,110,0.15)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">03 / 09</div>
+          <div class="card-name">Old-Fashioned-Glas</div>
+          <div class="card-alias">Rocks Glass · Tumbler · Lowball</div>
+          <div class="card-tagline">Massiv, bodenständig, zeitlos. Das bevorzugte Glas für Whisky-Cocktails und alle Drinks on the rocks.</div>
+          <div class="card-tags">
+            <span class="tag">Klassisch</span>
+            <span class="tag">On the Rocks</span>
+            <span class="tag">180–350 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="longdrink" onclick="openModal(3)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,20 L48,155 L92,155 L90,20 Z" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="50" y1="20" x2="90" y2="20" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="48" y1="155" x2="92" y2="155" stroke="#C9A96E" stroke-width="2.5"/>
+            <path d="M49,60 L91,60" stroke="rgba(201,169,110,0.18)" stroke-width="0.8"/>
+            <path d="M49,100 L91,100" stroke="rgba(201,169,110,0.13)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">04 / 09</div>
+          <div class="card-name">Highball</div>
+          <div class="card-alias">Collins Glass · Tall Glass</div>
+          <div class="card-tagline">Schlank und aufrecht – perfekt für Longdrinks mit Sprudel, bei denen Kohlensäure und Frische im Vordergrund stehen.</div>
+          <div class="card-tags">
+            <span class="tag">Longdrink</span>
+            <span class="tag">Fizzy</span>
+            <span class="tag">280–400 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="thematisch" onclick="openModal(4)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tiki mug body -->
+            <path d="M45,30 Q42,90 44,145 L96,145 Q98,90 95,30 Z" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="45" y1="30" x2="95" y2="30" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="44" y1="145" x2="96" y2="145" stroke="#C9A96E" stroke-width="2"/>
+            <!-- face lines -->
+            <line x1="55" y1="60" x2="65" y2="60" stroke="#C9A96E" stroke-width="1.2"/>
+            <line x1="75" y1="60" x2="85" y2="60" stroke="#C9A96E" stroke-width="1.2"/>
+            <path d="M58,80 Q70,90 82,80" fill="none" stroke="#C9A96E" stroke-width="1.2"/>
+            <path d="M48,100 L92,100" stroke="rgba(201,169,110,0.2)" stroke-width="0.8"/>
+            <!-- handle -->
+            <path d="M96,75 Q115,75 115,95 Q115,115 96,115" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">05 / 09</div>
+          <div class="card-name">Tiki-Glas</div>
+          <div class="card-alias">Tiki Mug · Zombie Glass</div>
+          <div class="card-tagline">Exotische Keramikgefäße aus der polynesisch inspirierten Tiki-Kultur der amerikanischen Nachkriegszeit – Kultobjekte der Barszene.</div>
+          <div class="card-tags">
+            <span class="tag">Thematisch</span>
+            <span class="tag">Tropical</span>
+            <span class="tag">Variabel</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="thematisch" onclick="openModal(5)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Copper mug: cylindrical with handle -->
+            <path d="M42,35 L42,148 L98,148 L98,35 Z" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="42" y1="35" x2="98" y2="35" stroke="#C9A96E" stroke-width="1.5"/>
+            <ellipse cx="70" cy="35" rx="28" ry="5" fill="none" stroke="#C9A96E" stroke-width="1.2"/>
+            <line x1="42" y1="148" x2="98" y2="148" stroke="#C9A96E" stroke-width="2.5"/>
+            <!-- handle -->
+            <path d="M98,70 Q120,70 120,95 Q120,118 98,118" fill="none" stroke="#C9A96E" stroke-width="2"/>
+            <!-- hammered texture lines -->
+            <path d="M50,55 L55,55" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+            <path d="M63,48 L68,48" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+            <path d="M78,60 L83,60" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+            <path d="M52,80 L57,80" stroke="rgba(201,169,110,0.25)" stroke-width="0.8"/>
+            <path d="M72,75 L77,75" stroke="rgba(201,169,110,0.25)" stroke-width="0.8"/>
+            <path d="M62,100 L67,100" stroke="rgba(201,169,110,0.2)" stroke-width="0.8"/>
+            <path d="M80,110 L85,110" stroke="rgba(201,169,110,0.2)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">06 / 09</div>
+          <div class="card-name">Kupferbecher</div>
+          <div class="card-alias">Moscow Mule Mug · Copper Cup</div>
+          <div class="card-tagline">Ein Behältnis aus Metall statt Glas – der ikonische Kupferbecher hält Moscow Mule und Co. außergewöhnlich kalt.</div>
+          <div class="card-tags">
+            <span class="tag">Thematisch</span>
+            <span class="tag">Kühlend</span>
+            <span class="tag">350–500 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="klassisch shots" onclick="openModal(6)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Coupe: wide shallow bowl on tall stem -->
+            <path d="M25,55 Q70,95 115,55" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <path d="M25,55 Q25,30 70,30 Q115,30 115,55" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="70" y1="55" x2="70" y2="150" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="48" y1="150" x2="92" y2="150" stroke="#C9A96E" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">07 / 09</div>
+          <div class="card-name">Cocktailschale</div>
+          <div class="card-alias">Coupe · Champagner-Schale</div>
+          <div class="card-tagline">Die elegante, tellerförmige Schale verbindet Art-Déco-Ästhetik mit moderner Craft-Cocktail-Kultur – ein Revival des 20. Jahrhunderts.</div>
+          <div class="card-tags">
+            <span class="tag">Klassisch</span>
+            <span class="tag">Stirred / Shaken</span>
+            <span class="tag">150–240 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="klassisch thematisch" onclick="openModal(7)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Margarita: double rim, wide top -->
+            <path d="M22,50 Q22,30 70,30 Q118,30 118,50" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <path d="M22,50 Q22,62 70,62 Q118,62 118,50" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <path d="M30,62 Q50,110 62,130 L78,130 Q90,110 110,62" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="62" y1="130" x2="62" y2="155" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="78" y1="130" x2="78" y2="155" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="44" y1="155" x2="96" y2="155" stroke="#C9A96E" stroke-width="2"/>
+            <!-- salt rim dots -->
+            <circle cx="35" cy="46" r="1.5" fill="#C9A96E" opacity="0.5"/>
+            <circle cx="52" cy="38" r="1.5" fill="#C9A96E" opacity="0.5"/>
+            <circle cx="70" cy="36" r="1.5" fill="#C9A96E" opacity="0.5"/>
+            <circle cx="88" cy="38" r="1.5" fill="#C9A96E" opacity="0.5"/>
+            <circle cx="105" cy="46" r="1.5" fill="#C9A96E" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">08 / 09</div>
+          <div class="card-name">Margaritaglas</div>
+          <div class="card-alias">Margarita Glass · Coupette</div>
+          <div class="card-tagline">Doppelter Rand, breite Öffnung – speziell für Salzrand-Drinks konzipiert und untrennbar mit der mexikanischen Cocktailkultur verbunden.</div>
+          <div class="card-tags">
+            <span class="tag">Thematisch</span>
+            <span class="tag">Sour</span>
+            <span class="tag">300–400 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card" data-categories="klassisch shots" onclick="openModal(8)">
+      <div class="card-top">
+        <div class="card-visual">
+          <svg width="140" height="180" viewBox="0 0 140 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Nick & Nora: tulip shaped, upright, smaller -->
+            <path d="M40,45 Q38,30 70,30 Q102,30 100,45" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <path d="M40,45 Q42,85 70,85 Q98,85 100,45" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+            <line x1="70" y1="85" x2="70" y2="155" stroke="#C9A96E" stroke-width="2"/>
+            <line x1="46" y1="155" x2="94" y2="155" stroke="#C9A96E" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-info">
+          <div class="card-number">09 / 09</div>
+          <div class="card-name">Nick & Nora</div>
+          <div class="card-alias">Cocktail Coupe · Spirit Glass</div>
+          <div class="card-tagline">Benannt nach den Filmfiguren Nick und Nora Charles – das Lieblingsglas der modernen Craft-Cocktail-Bewegung für gerührte Spirituosen.</div>
+          <div class="card-tags">
+            <span class="tag">Klassisch</span>
+            <span class="tag">Stirred</span>
+            <span class="tag">120–180 ml</span>
+          </div>
+          <div class="card-expand-hint">Details anzeigen →</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-image" id="modalImage"></div>
+      <div class="modal-title-area">
+        <div class="modal-number" id="modalNumber"></div>
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-alias-line" id="modalAlias"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="specs-grid" id="modalSpecs"></div>
+      <div class="modal-section">
+        <div class="modal-section-title">Geschichte & Herkunft</div>
+        <p id="modalHistory"></p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Form & Funktion</div>
+        <p id="modalFunction"></p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Klassische Cocktails</div>
+        <div class="cocktail-pills" id="modalCocktails"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Bar-Tipp</div>
+        <div class="pro-tip" id="modalTip"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section" id="quiz">
+  <div class="section-intro" style="padding:0 0 3rem;">
+    <p class="section-label">Wissenstest</p>
+    <h2 class="section-title">Zuordnungs-Quiz</h2>
+    <div class="gold-divider"></div>
+    <p class="section-body">Teste dein Wissen über Cocktailgläser! Kannst du Eigenschaften, Cocktails und Fakten den richtigen Gläsern zuordnen?</p>
+  </div>
+  <div class="quiz-container">
+    <div class="quiz-inner" id="quizInner">
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="quiz-progress-text" id="progressText">Frage 1 / 10</div>
+      </div>
+      <div class="quiz-question">
+        <div class="quiz-q-type" id="qType"></div>
+        <div class="quiz-q-text" id="qText"></div>
+        <div class="quiz-q-hint" id="qHint"></div>
+      </div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback">
+        <div class="quiz-feedback-title" id="feedbackTitle"></div>
+        <div class="quiz-feedback-text" id="feedbackText"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-secondary" onclick="skipQuestion()" id="skipBtn">Überspringen</button>
+        <button class="btn-primary" onclick="nextQuestion()" id="nextBtn" style="display:none">Weiter →</button>
+      </div>
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-label">Punkte erreicht</div>
+      <p class="result-message" id="resultMessage"></p>
+      <button class="btn-primary" onclick="restartQuiz()">Quiz wiederholen</button>
+    </div>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="sources-section" id="quellen">
+  <p class="section-label">Literatur & Quellen</p>
+  <h3 class="section-title" style="font-size:1.4rem;">Quellenverzeichnis</h3>
+  <ul class="sources-list">
+    <li><span class="source-num">[1]</span><div class="source-text">Regan, G. (2003). <em>The Joy of Mixology.</em> Clarkson Potter, New York. — Standardwerk zur Cocktailtheorie und Gläserkunde.</div></li>
+    <li><span class="source-num">[2]</span><div class="source-text">Wondrich, D. (2007). <em>Imbibe! From Absinthe Cocktail to Whisky Smash.</em> Perigee Books. — Historische Grundlagen des Cocktailglases.</div></li>
+    <li><span class="source-num">[3]</span><div class="source-text">Regan, M. & Regan, G. (1997). <em>The Bartender's Best Friend.</em> Wiley. — Praxishandbuch für professionelle Barkeeper.</div></li>
+    <li><span class="source-num">[4]</span><div class="source-text">Difford, S. <em>Difford's Guide to Cocktails.</em> <a href="https://www.diffordsguide.com" target="_blank">www.diffordsguide.com</a> — Umfassende Online-Ressource zu Gläsern und Cocktailrezepten.</div></li>
+    <li><span class="source-num">[5]</span><div class="source-text">Berry, J. (2002). <em>Beachbum Berry's Grog Log.</em> — Maßgebliche Quelle zur Tiki-Kultur und ihren spezifischen Gläsern.</div></li>
+    <li><span class="source-num">[6]</span><div class="source-text">International Bartenders Association (IBA). <em>Official IBA Cocktail Recipes.</em> <a href="https://www.iba-world.com" target="_blank">www.iba-world.com</a> — Normierung von Gläsern für internationale Wettbewerbe.</div></li>
+    <li><span class="source-num">[7]</span><div class="source-text">DeGroff, D. (2008). <em>The Craft of the Cocktail.</em> Clarkson Potter. — Standardwerk der modernen Craft-Cocktail-Bewegung und Glasauswahl.</div></li>
+  </ul>
+</div>
+
+<footer>© 2024 Bar Akademie – Interaktive Gläserkunde · Alle Rechte vorbehalten</footer>
+
+<script>
+// ===== GLASS DATA =====
+const glasses = [
+  {
+    name: "Cocktailspitz",
+    alias: "Martini-Glas · V-Glass · Cocktail Glass",
+    number: "01 / 09",
+    svgId: 0,
+    specs: [
+      { label: "Volumen", value: "150–300 ml" },
+      { label: "Form", value: "V-förmig, konisch" },
+      { label: "Stiel", value: "Lang, elegant" }
+    ],
+    history: "Das Cocktailspitz-Glas entstand im frühen 20. Jahrhundert und wurde durch die Prohibition-Ära sowie die Hollywoodkultur der 1930er-Jahre zur globalen Ikone. Ursprünglich für den klassischen Martini entwickelt, trug es maßgeblich dazu bei, das Trinken von Cocktails mit Glamour und Raffinesse zu verbinden. Die markante V-Silhouette ist seitdem das weltweit bekannteste Symbol der Barkultur.",
+    func: "Die nach unten spitz zulaufende V-Form des Glases ist kein bloßes Designelement: Da Martinis und ähnliche Drinks eisgekühlt gerührt oder geschüttelt und dann ohne Eis eingeschenkt werden, verhindert die enge, konisch zulaufende Glasform, dass eventuelle Eisreste vom Sieb durchdringen oder die Presentation getrübt wird. Der lange Stiel schützt den Drink vor der Körperwärme der Hand. Die breite Öffnung maximiert die Aromafreisetzung und erlaubt elegante Garnierungen wie Oliven oder Zitronenzeste.",
+    cocktails: ["Dry Martini", "Cosmopolitan", "Aviation", "Gimlet", "Vesper", "Clover Club"],
+    tip: "Ein Cocktailspitz sollte stets im Tiefkühler oder mit Eiswasser vorgekühlt werden. Die Wandung ist dünn und sensibel – schwere Garnierungen können das Glas kippen. In professionellen Bars wird er nur zu maximal 80% befüllt.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <line x1="80" y1="155" x2="80" y2="192" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="48" y1="192" x2="112" y2="192" stroke="#C9A96E" stroke-width="2.5"/>
+      <path d="M20,28 L80,153 L140,28 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="20" y1="28" x2="140" y2="28" stroke="#C9A96E" stroke-width="2"/>
+      <circle cx="80" cy="100" r="5" fill="#C9A96E" opacity="0.5"/>
+      <path d="M48,55 L112,55" stroke="rgba(201,169,110,0.15)" stroke-width="1"/>
+      <path d="M32,40" stroke="rgba(201,169,110,0.1)" stroke-width="1"/>
+    </svg>`
+  },
+  {
+    name: "Fancy-Glas (Hurricane)",
+    alias: "Hurricane Glass · Poco Grande · Fancy Glass",
+    number: "02 / 09",
+    specs: [
+      { label: "Volumen", value: "350–500 ml" },
+      { label: "Form", value: "Geschwungen, birnenförmig" },
+      { label: "Stiel", value: "Kurz bis mittel" }
+    ],
+    history: "Das Hurricane-Glas wurde in den 1940er-Jahren in New Orleans populär, angeblich im berühmten Pat O'Brien's Bar am French Quarter. Der Name leitet sich von der Ähnlichkeit seiner Form mit einem Hurrikan-Lampenaufsatz ab. Es wurde speziell für den gleichnamigen Cocktail kreiert – einen fruchtigen Rum-Punch, der zur Signaturdrink-Kultur des French Quarter wurde. Bis heute ist es ein fester Bestandteil tropischer und karibischer Barkonzepte weltweit.",
+    func: "Die voluminöse, geschwungene Form ermöglicht große Mengen Eis, Säfte und Früchte – ideal für Frozen Cocktails und aufwendige Tiki-Kreationen. Die breite Öffnung bietet reichlich Platz für mehrschichtige Garnierungen mit Früchten, Schirmen und Strohhalmen. Das bauchige Profil lässt floated Schichten aus verschiedenen Fruchtlikören besonders schön zur Geltung kommen.",
+    cocktails: ["Hurricane", "Piña Colada", "Zombie (Variante)", "Blue Hawaiian", "Mango Daiquiri", "Frozen Margarita"],
+    tip: "Hurricane-Gläser eignen sich hervorragend für Batched Cocktails – also Vorausmischungen für den Eventbetrieb. Für optimale Optik empfiehlt sich das Schichten von Säften nach Zuckergehalt (schwer unten, leicht oben) mit einem Löffelrücken.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M52,22 Q32,80 36,130 Q38,165 58,180 L102,180 Q122,165 124,130 Q128,80 108,22 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="58" y1="180" x2="58" y2="200" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="102" y1="180" x2="102" y2="200" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="36" y1="200" x2="124" y2="200" stroke="#C9A96E" stroke-width="2.5"/>
+    </svg>`
+  },
+  {
+    name: "Old-Fashioned-Glas",
+    alias: "Rocks Glass · Tumbler · Lowball · Whisky Glass",
+    number: "03 / 09",
+    specs: [
+      { label: "Volumen", value: "180–350 ml" },
+      { label: "Form", value: "Zylindrisch, massiv" },
+      { label: "Boden", value: "Schwer, dick" }
+    ],
+    history: "Das Old-Fashioned-Glas ist das älteste noch in aktiver Verwendung befindliche Cocktailglas und leitet seinen Namen direkt vom gleichnamigen Cocktail ab – dem ältesten dokumentierten Cocktailrezept überhaupt (1806). Im 19. Jahrhundert als Whisky-Trinkbecher genutzt, entwickelte es sich über Jahrzehnte zum universellen Kurzdrink-Glas. Der massive Glasboden ist kein ästhetisches Detail, sondern entstammt der Praxis, Zucker im Glas selbst zu musseln.",
+    func: "Das niedrige, breite Format ist optimal für große Eiswürfel (Kingsize-Cubes), die langsamer schmelzen und den Drink weniger stark verdünnen. Die dicken Glaswände schützen vor Wärmeübertragung und verleihen dem Glas eine angenehme Haptik. Die breite Öffnung eignet sich gut für Muddling (Zerstampfen von Früchten und Kräutern) direkt im Glas sowie für ausladende Aromengarnituren aus Zitrusschalen.",
+    cocktails: ["Old Fashioned", "Negroni", "Whisky Sour on the Rocks", "Caipirinha", "Sazerac", "Boulevardier"],
+    tip: "Für einen klassischen Old Fashioned empfiehlt die IBA einen einzelnen großen Klareis-Würfel (5×5 cm). Dieser gibt dem Gast mehr von der Ästhetik und dem Handwerk der Bar. Das Glas eignet sich auch für Spirit-Forward-Neats wie Calvados oder Cognac.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M35,48 L40,172 L120,172 L125,48 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="35" y1="48" x2="125" y2="48" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="40" y1="172" x2="120" y2="172" stroke="#C9A96E" stroke-width="4"/>
+      <path d="M38,100 L122,100" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+      <path d="M38,135" stroke="rgba(201,169,110,0.15)" stroke-width="1"/>
+    </svg>`
+  },
+  {
+    name: "Highball",
+    alias: "Highball Glass · Collins Glass · Tall Glass",
+    number: "04 / 09",
+    specs: [
+      { label: "Volumen", value: "280–400 ml" },
+      { label: "Form", value: "Schlank, zylindrisch" },
+      { label: "Höhe", value: "Hoch (12–16 cm)" }
+    ],
+    history: "Der Begriff 'Highball' stammt aus dem amerikanischen Eisenbahnwesen des 19. Jahrhunderts: Eine hochgezogene Signalkugel (high ball) signalisierte den Lokführern freie Fahrt. In Eisenbahn-Bars wurde ein simpler Whisky-Soda als 'Highball' bezeichnet – schnell zu mixen, schnell zu trinken. Das zugehörige zylindrische Glas wurde zum Standard für alle Longdrinks mit Sprudelwasser.",
+    func: "Das hohe, schlanke Profil erfüllt einen physikalischen Zweck: Es reduziert die Oberfläche des Getränks relativ zum Volumen und verlangsamt damit das Entweichen von CO₂ aus karbonisierten Mixern. Ein Highball mit Tonic oder Ginger Beer bleibt dadurch länger frisch und prickelnd. Gleichzeitig bietet die Höhe Platz für viel Eis, das die Temperatur über einen längeren Trinkhorizont stabil hält.",
+    cocktails: ["Gin & Tonic", "Whisky & Soda", "Tom Collins", "Mojito", "Paloma", "Aperol Spritz"],
+    tip: "Für perfekte Highballs empfiehlt die moderne Craft-Bar, das Glas vor dem Einschenken mit Tonic oder Soda vorzukühlen. Das Verhältnis 1:3 (1 Teil Spirituose, 3 Teile Mixer) ist der internationale Standard. Beim Auffüllen den Mixer am Glasrand entlanglaufen lassen, um CO₂ zu erhalten.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M55,20 L52,190 L108,190 L105,20 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="55" y1="20" x2="105" y2="20" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="52" y1="190" x2="108" y2="190" stroke="#C9A96E" stroke-width="3"/>
+      <path d="M54,75 L106,75" stroke="rgba(201,169,110,0.18)" stroke-width="1"/>
+      <path d="M53,130 L107,130" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+    </svg>`
+  },
+  {
+    name: "Tiki-Glas",
+    alias: "Tiki Mug · Zombie Glass · Tiki Cup",
+    number: "05 / 09",
+    specs: [
+      { label: "Volumen", value: "300–600 ml (variabel)" },
+      { label: "Material", value: "Keramik oder Glas" },
+      { label: "Form", value: "Figürlich, skulptural" }
+    ],
+    history: "Die Tiki-Kultur entstand in den 1930er-Jahren in den USA, maßgeblich geprägt von Donn Beach (Don the Beachcomber) und Trader Vic (Victor Bergeron). Als Eskapismus inmitten der Großen Depression schufen sie polynesisch inspirierte Bars und Cocktails. Die charakteristischen figürlichen Keramikbecher – meist in Form polynesischer Götter oder tropischer Tiere – wurden zu Sammlerstücken und Statussymbolen. Die Tiki-Revivalbewegung seit den 2000er-Jahren hat diese Gefäße neu popularisiert.",
+    func: "Tiki-Mugs aus Keramik sind thermisch isolierender als Glas und halten Crushed-Ice-Drinks besonders gut kalt. Da ihre Öffnung oft eng ist, konservieren sie Aromen besser – entscheidend bei den komplexen, vielschichtigen Rum-Blends typischer Tiki-Drinks. Die Opazität des Keramik-Mugs verbirgt bewusst die genaue Zusammensetzung des Getränks – ein klassischer Barkeeper-Trick, um Rezepte geheim zu halten.",
+    cocktails: ["Zombie", "Mai Tai", "Jungle Bird", "Painkiller", "Navy Grog", "Scorpion Bowl"],
+    tip: "Originale Tiki-Mugs von Donn Beach oder Trader Vic's sind heute begehrte Sammlerstücke. Für professionelle Bars empfehlen sich hochwertige Keramikmugs von Spezialherstellern. Für Crushed-Ice-Drinks stets frisch gecrushtes Eis verwenden – nicht zertrümmertes Würfeleis.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48,30 Q44,100 46,175 L114,175 Q116,100 112,30 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="48" y1="30" x2="112" y2="30" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="46" y1="175" x2="114" y2="175" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="58" y1="70" x2="72" y2="70" stroke="#C9A96E" stroke-width="1.5"/>
+      <line x1="88" y1="70" x2="102" y2="70" stroke="#C9A96E" stroke-width="1.5"/>
+      <path d="M62,98 Q80,112 98,98" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+      <path d="M114,90 Q138,90 138,115 Q138,138 114,138" fill="none" stroke="#C9A96E" stroke-width="2"/>
+      <path d="M50,125 L110,125" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+    </svg>`
+  },
+  {
+    name: "Kupferbecher",
+    alias: "Moscow Mule Mug · Copper Cup · Kupfermugg",
+    number: "06 / 09",
+    specs: [
+      { label: "Volumen", value: "350–500 ml" },
+      { label: "Material", value: "Kupfer (innen: Edelstahl)" },
+      { label: "Form", value: "Zylindrisch, gehenkt" }
+    ],
+    history: "Der Kupferbecher wurde in den 1940er-Jahren durch den Moscow Mule populär – einem Marketing-Geniestreich von John G. Martin (Smirnoff-Vodka) und Jack Morgan (Cock 'n' Bull Ginger Beer). Beide saßen auf unverkäuflichen Lagerbeständen und kreierten den Drink gemeinsam – inklusive des Kupferbechers als visuellem Alleinstellungsmerkmal. Das Bild eines frostigen Kupferbechers wurde so erfolgreich, dass er heute fester Bestandteil der globalen Barkultur ist.",
+    func: "Kupfer ist einer der besten thermischen Leiter unter Metallen – der Becher kühlt sich bei Kontakt mit Eis extrem schnell und stark ab und hält Getränke dadurch deutlich länger kalt als Glas. Der Kondensationseffekt auf der Außenwand erzeugt zudem einen visuell eindrucksvollen Frosteffekt. Moderne Kupferbecher haben Edelstahlbeschichtungen innen, da reines Kupfer mit sauren Drinks reagieren und gesundheitlich bedenkliche Kupferionen freisetzen kann.",
+    cocktails: ["Moscow Mule", "Dark 'n' Stormy (Variante)", "Kentucky Mule", "Mexican Mule", "Gin-Gin Mule", "Mezcal Mule"],
+    tip: "Handgehämmerte Kupferbecher kühlen schneller als glatte Oberflächen – die vergrößerte Oberfläche durch die Hammerschläge verbessert den Wärmeaustausch. Achten Sie beim Kauf auf lebensmittelechte Innenbeschichtung (Edelstahl oder Zinn). Nach dem Reinigen trocken abwischen, damit keine Oxidationsflecken entstehen.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40,35 L40,178 L120,178 L120,35 Z" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <ellipse cx="80" cy="35" rx="40" ry="7" fill="rgba(14,14,14,0.5)" stroke="#C9A96E" stroke-width="1.5"/>
+      <line x1="40" y1="178" x2="120" y2="178" stroke="#C9A96E" stroke-width="3"/>
+      <path d="M120,80 Q148,80 148,108 Q148,136 120,136" fill="none" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="48" y1="60" x2="56" y2="60" stroke="rgba(201,169,110,0.35)" stroke-width="1"/>
+      <line x1="68" y1="52" x2="76" y2="52" stroke="rgba(201,169,110,0.35)" stroke-width="1"/>
+      <line x1="90" y1="68" x2="98" y2="68" stroke="rgba(201,169,110,0.35)" stroke-width="1"/>
+      <line x1="50" y1="95" x2="58" y2="95" stroke="rgba(201,169,110,0.25)" stroke-width="1"/>
+      <line x1="78" y1="88" x2="86" y2="88" stroke="rgba(201,169,110,0.25)" stroke-width="1"/>
+      <line x1="60" y1="125" x2="68" y2="125" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+      <line x1="92" y1="138" x2="100" y2="138" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+    </svg>`
+  },
+  {
+    name: "Cocktailschale",
+    alias: "Coupe · Champagner-Schale · Saucer",
+    number: "07 / 09",
+    specs: [
+      { label: "Volumen", value: "150–240 ml" },
+      { label: "Form", value: "Flach, schüsselförmig" },
+      { label: "Stiel", value: "Lang, filigran" }
+    ],
+    history: "Die Cocktailschale (Coupe) wird oft mit der Legende verknüpft, ihre Form sei nach der Brust von Marie Antoinette geformt worden – ein hartnäckiger Mythos ohne historische Grundlage. Tatsächlich wurde das flache Schalenglas um 1700 in England für Champagner entworfen. Im frühen 20. Jahrhundert, besonders in der Prohibition-Ära und danach, wurde es zum Symbol des eleganten Cocktailtrinkens. Heute ist es das bevorzugte Glas der Craft-Cocktail-Bewegung und erlebt seit den 2010er-Jahren ein starkes Revival.",
+    func: "Die breite, flache Form der Coupe erlaubt eine besonders große Aromaoberfläche – gerührte, spirituosenreiche Cocktails entfalten ihr Bouquet optimal. Der lange Stiel schützt das Getränk vor der Körperwärme der Hand, was besonders bei eisgekühlten, ungeeisten Drinks entscheidend ist. Die runde Silhouette ist zudem sehr stabil – das Glas kippt seltener als der V-förmige Cocktailspitz.",
+    cocktails: ["Daiquiri (kein Eis)", "Bee's Knees", "French 75", "Last Word", "Sidecar", "Corpse Reviver #2"],
+    tip: "Die Coupe ist das flexibelste klassische Cocktailglas: Sie kann Champagner, Cocktails ohne Eis und auch Shots elegant präsentieren. In der modernen Bar ersetzt sie den Cocktailspitz für viele Shaken Drinks. Immer weit aus dem Tiefkühler nehmen – die große Fläche verliert Kälte schnell!",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18,65 Q80,118 142,65" fill="none" stroke="#C9A96E" stroke-width="2"/>
+      <path d="M18,65 Q18,28 80,28 Q142,28 142,65" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="80" y1="65" x2="80" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="50" y1="188" x2="110" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+    </svg>`
+  },
+  {
+    name: "Margaritaglas",
+    alias: "Margarita Glass · Coupette · Double-Wide Coupe",
+    number: "08 / 09",
+    specs: [
+      { label: "Volumen", value: "300–400 ml" },
+      { label: "Form", value: "Doppelter Rand, weit" },
+      { label: "Besonderheit", value: "Salzrand-optimiert" }
+    ],
+    history: "Das Margaritaglas entwickelte sich parallel zur Popularisierung des Margarita-Cocktails in Mexiko und den USA ab den 1930er-Jahren. Das erste dokumentierte Margarita-Rezept stammt von 1937; verschiedene Ursprungslegenden konkurrieren bis heute. Das Glas mit seiner charakteristischen doppelten Krempe wurde speziell entwickelt, um den ikonischen Salzrand zu tragen, ohne dass er in das Getränk bröckelt. Die breite Öffnung ermöglicht zudem üppige Garnierungen mit Limettenspalten.",
+    func: "Die Doppelung am oberen Rand ist das entscheidende Designmerkmal: Sie schafft eine horizontale Fläche, auf der Salz oder Zucker haften können, ohne in das Getränk zu fallen. Die steile Wandung erlaubt es zudem, einen deutlichen Kontrast zwischen gekratetem Rand und dem Getränk zu erzeugen. Bei Frozen Margaritas bietet das große Volumen ausreichend Platz für die eisige, cremige Textur.",
+    cocktails: ["Margarita (klassisch)", "Frozen Margarita", "Tommy's Margarita", "Spicy Margarita", "Watermelon Margarita", "Paloma (Variante)"],
+    tip: "Für einen professionellen Salzrand: Glasrand mit Limettensaft befeuchten (nur halb umziehen – der Gast soll selbst wählen, ob er salzig trinken möchte), dann mit grobem Meersalz oder Fleur de Sel beschichten. Nie das Salz in das Getränk drücken.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16,52 Q16,28 80,28 Q144,28 144,52" fill="none" stroke="#C9A96E" stroke-width="2"/>
+      <path d="M16,52 Q16,70 80,70 Q144,70 144,52" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <path d="M26,70 Q50,128 68,158 L92,158 Q110,128 134,70" fill="none" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="68" y1="158" x2="68" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="92" y1="158" x2="92" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="44" y1="188" x2="116" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+      <circle cx="32" cy="48" r="2" fill="#C9A96E" opacity="0.55"/>
+      <circle cx="54" cy="36" r="2" fill="#C9A96E" opacity="0.55"/>
+      <circle cx="80" cy="33" r="2" fill="#C9A96E" opacity="0.55"/>
+      <circle cx="106" cy="36" r="2" fill="#C9A96E" opacity="0.55"/>
+      <circle cx="128" cy="48" r="2" fill="#C9A96E" opacity="0.55"/>
+    </svg>`
+  },
+  {
+    name: "Nick & Nora",
+    alias: "Nick & Nora Glass · Cocktail Stem · Spirit Glass",
+    number: "09 / 09",
+    specs: [
+      { label: "Volumen", value: "120–180 ml" },
+      { label: "Form", value: "Tulpenförmig, aufrecht" },
+      { label: "Stiel", value: "Lang, präzise" }
+    ],
+    history: "Benannt nach den Filmfiguren Nick und Nora Charles aus Dashiell Hammetts Roman 'The Thin Man' (1934) und der darauf basierenden Filmreihe, in der die Figuren stets elegante, schlanke Cocktailgläser in der Hand halten. Das Glas selbst existierte bereits im frühen 20. Jahrhundert, wurde aber durch die Craft-Cocktail-Bewegung ab den 2000er-Jahren wiederentdeckt und zum bevorzugten Glas für gerührte, spirituosenreiche Drinks erklärt.",
+    func: "Die aufrechte, leicht nach innen geschwungene tulpenförmige Öffnung des Nick & Nora konzentriert die Aromen gezielter als die breite Coupe oder der offene Cocktailspitz – ideal für komplexe, spirituosenreiche Drinks, bei denen die Nase vor dem ersten Schluck überzeugt werden soll. Das kleinere Volumen (120–180 ml) fördert den Fokus auf Qualität statt Quantität und verhindert, dass ein kalt geservter Drink warm wird, bevor er ausgetrunken ist.",
+    cocktails: ["Martini (modern)", "Manhattan", "Vieux Carré", "Paper Plane", "Naked & Famous", "Bijou"],
+    tip: "Das Nick & Nora ist das Glas der Wahl für Spirit-Forward-Cocktails, die gerührt statt geschüttelt werden. Da das Volumen kleiner ist als beim Cocktailspitz oder der Coupe, sollten Rezepte auf 60–70 ml Gesamtvolumen skaliert werden. In Premium-Bars wird es grundsätzlich tiefgefroren serviert.",
+    svgContent: `<svg width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M42,52 Q38,28 80,28 Q122,28 118,52" fill="none" stroke="#C9A96E" stroke-width="2"/>
+      <path d="M42,52 Q45,105 80,105 Q115,105 118,52" fill="rgba(201,169,110,0.04)" stroke="#C9A96E" stroke-width="2"/>
+      <line x1="80" y1="105" x2="80" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+      <line x1="50" y1="188" x2="110" y2="188" stroke="#C9A96E" stroke-width="2.5"/>
+    </svg>`
+  }
+];
+
+// ===== FILTER =====
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.glass-card').forEach(card => {
+      if (filter === 'all' || card.dataset.categories.includes(filter)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// ===== MODAL =====
+function openModal(idx) {
+  const g = glasses[idx];
+  document.getElementById('modalNumber').textContent = g.number;
+  document.getElementById('modalName').textContent = g.name;
+  document.getElementById('modalAlias').textContent = g.alias;
+  document.getElementById('modalImage').innerHTML = g.svgContent;
+  document.getElementById('modalSpecs').innerHTML = g.specs.map(s =>
+    `<div class="spec-item"><div class="spec-label">${s.label}</div><div class="spec-value">${s.value}</div></div>`
+  ).join('');
+  document.getElementById('modalHistory').textContent = g.history;
+  document.getElementById('modalFunction').textContent = g.func;
+  document.getElementById('modalCocktails').innerHTML = g.cocktails.map(c =>
+    `<span class="cocktail-pill">${c}</span>`
+  ).join('');
+  document.getElementById('modalTip').textContent = g.tip;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnBg(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ===== QUIZ =====
+// NOTE: correct index always refers to the index within the question's own options array.
+// Each question stores its options in a fixed order so correct never changes.
+const quizQuestions = [
+  {
+    type: "Zuordnung – Cocktail",
+    text: "Für welches Glas wurde der Moscow Mule in den 1940er-Jahren erfunden?",
+    hint: "Es ist kein Glas im eigentlichen Sinne.",
+    options: ["Highball-Glas", "Kupferbecher", "Old-Fashioned-Glas", "Tiki-Mug"],
+    correct: 1,
+    feedback: "Richtig! Der Moscow Mule wurde als Marketing-Geniestreich gemeinsam mit dem charakteristischen Kupferbecher kreiert – das ungewöhnliche Metall-Gefäß wurde bewusst als Alleinstellungsmerkmal eingesetzt."
+  },
+  {
+    type: "Eigenschaften",
+    text: "Welches Glas hat eine aufrechte, tulpenförmige Öffnung und ist benannt nach Filmfiguren aus den 1930ern?",
+    hint: "Es ist das Lieblingsglas der modernen Craft-Cocktail-Bewegung.",
+    options: ["Cocktailspitz", "Cocktailschale (Coupe)", "Margaritaglas", "Nick & Nora"],
+    correct: 3,
+    feedback: "Korrekt! Das Nick & Nora-Glas ist benannt nach den Filmfiguren aus 'The Thin Man' (1934). Seine tulpenförmige, aufrechte Öffnung konzentriert Aromen gezielter als Coupe oder Martini-Glas."
+  },
+  {
+    type: "Form & Funktion",
+    text: "Warum hat das Highball-Glas seine schlanke, hohe Form?",
+    hint: "Es hat mit Physik und Kohlensäure zu tun.",
+    options: ["Um mehr Garnitur unterzubringen", "Um CO₂-Verlust zu verlangsamen und viel Eis zu fassen", "Weil es einfacher zu reinigen ist", "Aus rein ästhetischen Gründen"],
+    correct: 1,
+    feedback: "Genau! Das hohe, schlanke Profil reduziert die Oberfläche des Getränks relativ zum Volumen und verlangsamt so das Entweichen von CO₂. Gin & Tonic bleibt länger frisch und prickelnd."
+  },
+  {
+    type: "Geschichte",
+    text: "In welcher amerikanischen Stadt wurde das Hurricane-Glas in den 1940ern populär?",
+    hint: "Eine Stadt berühmt für French Quarter und Jazz-Musik.",
+    options: ["Miami", "Las Vegas", "New Orleans", "New York City"],
+    correct: 2,
+    feedback: "Richtig! Das Hurricane-Glas wurde im berühmten Pat O'Brien's Bar in New Orleans populär und ist bis heute untrennbar mit der Barkultur des French Quarter verbunden."
+  },
+  {
+    type: "Material & Physik",
+    text: "Warum ist Kupfer als Material für den Moscow Mule-Becher besonders geeignet?",
+    hint: "Denke an thermische Leitfähigkeit.",
+    options: ["Es sieht edler aus als Glas", "Kupfer ist sehr bruchsicher", "Kupfer leitet Wärme hervorragend und kühlt extrem schnell", "Es ist leichter als Glas"],
+    correct: 2,
+    feedback: "Exakt! Kupfer ist einer der besten thermischen Leiter unter den Metallen. Der Becher kühlt sich bei Kontakt mit Eis extrem schnell ab und hält Getränke deutlich länger kalt als Glas."
+  },
+  {
+    type: "Zuordnung – Merkmal",
+    text: "Welches Glas hat eine charakteristische doppelte Krempe, die speziell für Salzränder konzipiert ist?",
+    hint: "Es ist untrennbar mit einem mexikanischen Tequila-Cocktail verbunden.",
+    options: ["Cocktailschale (Coupe)", "Old-Fashioned-Glas", "Fancy-Glas (Hurricane)", "Margaritaglas"],
+    correct: 3,
+    feedback: "Richtig! Das Margaritaglas hat seine doppelte Krempe speziell für Salz- oder Zuckerränder. Die horizontale Fläche am oberen Rand hält das Salz, ohne dass es in das Getränk fällt."
+  },
+  {
+    type: "Kulturgeschichte",
+    text: "Woher stammt der Begriff 'Highball'?",
+    hint: "Es hat mit dem amerikanischen Eisenbahnwesen des 19. Jahrhunderts zu tun.",
+    options: ["Vom englischen Wort für 'hohes Glas'", "Von einer Signalkugel im US-Eisenbahnwesen", "Von einem berühmten Barkeeper namens High", "Von einem US-amerikanischen Präsidenten"],
+    correct: 1,
+    feedback: "Korrekt! 'Highball' stammt aus dem amerikanischen Eisenbahnwesen: Eine hochgezogene Signalkugel (high ball) zeigte den Lokführern freie Fahrt. In Eisenbahn-Bars nannte man den schnell gemixten Whisky-Soda 'Highball'."
+  },
+  {
+    type: "Eigenschaften",
+    text: "Welches Glas ist das älteste noch aktiv verwendete Cocktailglas, benannt nach einem Rezept von 1806?",
+    hint: "Es ist schwer, hat einen dicken Boden und wird für Whisky-Cocktails verwendet.",
+    options: ["Cocktailspitz (Martini)", "Cocktailschale (Coupe)", "Old-Fashioned-Glas (Tumbler)", "Nick & Nora"],
+    correct: 2,
+    feedback: "Richtig! Das Old-Fashioned-Glas leitet seinen Namen vom 'Old Fashioned' ab – dem ältesten dokumentierten Cocktailrezept (1806). Der massive Glasboden stammt aus der Praxis, Zucker im Glas zu zerstampfen."
+  },
+  {
+    type: "Tiki-Kultur",
+    text: "Welchen Vorteil bietet das Keramik-Material traditioneller Tiki-Mugs gegenüber Glas?",
+    hint: "Es hat etwas mit Temperatur und Geheimhaltung zu tun.",
+    options: ["Keramik ist billiger als Glas", "Bessere Wärmeisolierung hält Drinks kalt, Opazität verbirgt das Rezept", "Keramik ist immer lebensmittelecht", "Keramik ist bruchsicherer als Glas"],
+    correct: 1,
+    feedback: "Exakt! Keramik isoliert besser als Glas und hält Crushed-Ice-Drinks länger kalt. Zudem verbirgt die Opazität des Mugs die genaue Rezeptur – ein bewusster Trick der Tiki-Bar-Gründer, um ihre Rezepte geheim zu halten."
+  },
+  {
+    type: "Form & Funktion",
+    text: "Was macht die Cocktailschale (Coupe) besonders geeignet für spirituosenreiche Drinks ohne Eis?",
+    hint: "Denke an Aromen, den langen Stiel und die Temperatur.",
+    options: ["Das große Volumen für viel Flüssigkeit", "Der schwere Boden für Stabilität", "Der lange Stiel schützt vor Handwärme, die breite Öffnung maximiert die Aromaoberfläche", "Die enge Öffnung konzentriert die Aromen besser"],
+    correct: 2,
+    feedback: "Richtig! Der lange Stiel der Coupe schützt das Getränk vor der Körperwärme der Hand, die breite Öffnung maximiert die Aromaoberfläche. Für kalt gerührte Drinks ohne Eis ist das die ideale Kombination."
+  },
+  {
+    type: "Zuordnung – Cocktail",
+    text: "Welches Glas wird traditionell für einen klassischen Zombie-Cocktail verwendet?",
+    hint: "Der Zombie ist ein üppiger Rum-Drink aus der Tiki-Kultur.",
+    options: ["Old-Fashioned-Glas", "Nick & Nora", "Highball-Glas", "Tiki-Mug oder Zombie-Glas"],
+    correct: 3,
+    feedback: "Korrekt! Der Zombie wird traditionell im Tiki-Mug oder Zombie-Glas serviert. Donn Beach, der Erfinder des Zombie in den 1930er-Jahren, schuf den Drink als Teil der Tiki-Bar-Kultur."
+  },
+  {
+    type: "Profi-Wissen",
+    text: "Welches Glas wird in der modernen Craft-Bar für einen gerührten Dry Martini oft dem klassischen Cocktailspitz vorgezogen?",
+    hint: "Es konzentriert Aromen besser und ist stabiler.",
+    options: ["Highball-Glas", "Margaritaglas", "Nick & Nora oder Coupe", "Hurricane-Glas"],
+    correct: 2,
+    feedback: "Richtig! Nick & Nora oder Coupe werden in der modernen Craft-Bar bevorzugt, da ihre Form die Aromen konzentriert, sie stabiler stehen und das kleinere Volumen sicherstellt, dass der Martini kalt bleibt."
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+// Shuffle once at start
+const shuffled = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+
+function renderQuestion() {
+  const q = shuffled[currentQ];
+  document.getElementById('progressText').textContent = `Frage ${currentQ + 1} / ${shuffled.length}`;
+  document.getElementById('progressFill').style.width = `${(currentQ / shuffled.length) * 100}%`;
+  document.getElementById('qType').textContent = q.type;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('qHint').textContent = q.hint ? `Hinweis: ${q.hint}` : '';
+
+  // Build option buttons with data-index for safe retrieval
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = q.options.map((o, i) =>
+    `<button class="quiz-option" data-index="${i}" onclick="selectAnswer(${i})">${o}</button>`
+  ).join('');
+
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('skipBtn').style.display = 'inline-block';
+  answered = false;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = shuffled[currentQ];
+  const optBtns = document.querySelectorAll('#quizOptions .quiz-option');
+  optBtns.forEach(btn => { btn.disabled = true; });
+
+  const fb = document.getElementById('quizFeedback');
+  const fbTitle = document.getElementById('feedbackTitle');
+  const fbText = document.getElementById('feedbackText');
+
+  if (idx === q.correct) {
+    // Mark selected as correct
+    optBtns[idx].classList.add('correct');
+    fb.className = 'quiz-feedback show correct';
+    fbTitle.textContent = '✓ Richtig!';
+    score++;
+  } else {
+    // Mark selected as wrong, reveal correct answer
+    optBtns[idx].classList.add('wrong');
+    optBtns[q.correct].classList.add('correct');
+    fb.className = 'quiz-feedback show wrong';
+    fbTitle.textContent = '✗ Leider falsch.';
+  }
+
+  fbText.textContent = q.feedback;
+  document.getElementById('nextBtn').style.display = 'inline-block';
+  document.getElementById('skipBtn').style.display = 'none';
+}
+
+function skipQuestion() {
+  if (answered) return;
+  answered = true;
+  const q = shuffled[currentQ];
+  const optBtns = document.querySelectorAll('#quizOptions .quiz-option');
+  optBtns.forEach(btn => { btn.disabled = true; });
+  optBtns[q.correct].classList.add('correct');
+  const fb = document.getElementById('quizFeedback');
+  fb.className = 'quiz-feedback show wrong';
+  document.getElementById('feedbackTitle').textContent = 'Übersprungen – richtige Antwort:';
+  document.getElementById('feedbackText').textContent = q.feedback;
+  document.getElementById('nextBtn').style.display = 'inline-block';
+  document.getElementById('skipBtn').style.display = 'none';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= shuffled.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('quizInner').classList.add('hidden');
+  const result = document.getElementById('quizResult');
+  result.classList.add('show');
+  const pct = Math.round((score / shuffled.length) * 100);
+  document.getElementById('resultScore').textContent = `${score} / ${shuffled.length}`;
+  let msg = '';
+  if (pct >= 90) msg = 'Hervorragend! Du bist ein echter Barkultur-Experte. Dein Wissen über Cocktailgläser ist auf Profi-Niveau.';
+  else if (pct >= 70) msg = 'Sehr gut! Du kennst die Welt der Cocktailgläser gut. Ein bisschen Praxis, und du bist auf Barkeeper-Niveau.';
+  else if (pct >= 50) msg = 'Nicht schlecht! Du hast eine solide Basis. Lies die Gläserprofile noch einmal durch – du schaffst 100%.';
+  else msg = 'Guter Anfang! Die Welt der Cocktailgläser ist komplex. Lies die Karten noch einmal und versuche es erneut!';
+  document.getElementById('resultMessage').textContent = msg;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  score = 0;
+  answered = false;
+  shuffled.sort(() => Math.random() - 0.5);
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizInner').classList.remove('hidden');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
